@@ -6,7 +6,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        Memory
+        <h1>Memory Game</h1>
+        <Menu />>
         <GameBoard />
       </div>
     );

@@ -26,7 +26,7 @@ class Card extends Component {
     }
     
     return (
-      <span className='card' onClick={this.onClick} style={style}></span>
+      <span className='card' onClick={cardState !== CardState.MATCHIING ? this.onClick : null} style={style}></span>
     )
   }
 }
