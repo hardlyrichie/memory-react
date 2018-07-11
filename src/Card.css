@@ -1,0 +1,10 @@
+.card {
+  display: inline-block;
+  width: calc(100vw / 10);
+  height: calc(100vw / 10);
+  background-color: gray;
+  border: 10px solid gray;
+  border-radius: 50px;
+  margin: 10px;
+  transition: all .8s;
+}
