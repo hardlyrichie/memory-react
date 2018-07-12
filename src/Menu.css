@@ -1,0 +1,33 @@
+.menu {
+  margin: 10px 0;
+  color: white;
+}
+
+.menu span {
+  display: inline-block;
+  padding: 10px 10px;
+  transition: transform .2s, box-shadow .2s;
+  cursor: pointer;
+}
+
+.menu span:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px grey;
+}
+
+.menu span:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 10px grey;
+}
+
+.easy {
+  background-color: green;
+}
+
+.medium {
+  background-color: blue;
+}
+
+.hard {
+  background-color: red;
+}

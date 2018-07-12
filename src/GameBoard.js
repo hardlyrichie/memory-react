@@ -7,38 +7,11 @@ const CardState = {
   MATCHIING: 2,
 };
 
-function shuffle(a) {
-  let arr = a.map(obj => ({...obj}));
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
 class GameBoard extends Component {
   constructor(props) {
     super(props);
 
-    let cards = [
-      {id: 0, cardState: CardState.HIDING, backgroundColor: 'purple'},
-      {id: 1, cardState: CardState.HIDING, backgroundColor: 'purple'},
-      {id: 2, cardState: CardState.HIDING, backgroundColor: 'aquamarine'},
-      {id: 3, cardState: CardState.HIDING, backgroundColor: 'aquamarine'},
-      {id: 4, cardState: CardState.HIDING, backgroundColor: 'green'},
-      {id: 5, cardState: CardState.HIDING, backgroundColor: 'green'},
-      {id: 6, cardState: CardState.HIDING, backgroundColor: 'wheat'},
-      {id: 7, cardState: CardState.HIDING, backgroundColor: 'wheat'},
-      {id: 8, cardState: CardState.HIDING, backgroundColor: 'black'},
-      {id: 9, cardState: CardState.HIDING, backgroundColor: 'black'},
-      {id: 10, cardState: CardState.HIDING, backgroundColor: 'red'},
-      {id: 11, cardState: CardState.HIDING, backgroundColor: 'red'},
-      {id: 12, cardState: CardState.HIDING, backgroundColor: 'yellow'},
-      {id: 13, cardState: CardState.HIDING, backgroundColor: 'yellow'},
-    ];
-
     this.state = {
-      cards: shuffle(cards),
       clicks: 0,
       currentCard: null,
     };
@@ -47,7 +20,8 @@ class GameBoard extends Component {
   }
 
   handleClick(id) {
-    let {clicks, cards, currentCard} = this.state;
+    let {cards} = this.props;
+    let {clicks, currentCard} = this.state;
     if (clicks >= 2) {
       // Reset clicks to 0 and all cards showing to hide
       clicks = 0;
@@ -95,14 +69,14 @@ class GameBoard extends Component {
     }
 
     this.setState({
-      cards,
       clicks: ++clicks,
       currentCard,
     });
+    this.props.updateCards(cards);
   }
 
   checkWin() {
-    const {cards} = this.state;
+    const {cards} = this.props;
 
     let isWin = true;
 
@@ -118,16 +92,28 @@ class GameBoard extends Component {
   
   componentDidUpdate() {
     if (this.state.clicks === 2 && this.checkWin()) {
-      alert('You won!');
+      this.resetGame()
+      this.props.onWin();
     }
   }
 
+  resetGame() {
+    this.setState({
+      clicks: 0,
+      currentCard: null,
+    })
+  }
+
+
   render() {
-    let cards = this.state.cards.map(card => (
+    let {cards} = this.props;
+
+    cards = cards.map(card => (
       <Card
         key={card.id} 
         {...card}
         onClick={this.handleClick}
+        count={cards.length}
       />
     ));
 

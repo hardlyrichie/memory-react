@@ -19,8 +19,11 @@ class Card extends Component {
   }
 
   render() {
-    let {cardState} = this.props;
-    let style = {}
+    let {cardState, count} = this.props;
+    let style = {
+      width: `calc(100vw / ${count / 2})`,
+      height: `calc(100vw / ${count / 2})`,
+    }
     if ((cardState === CardState.SHOWING || cardState === CardState.MATCHIING) && this.props.backgroundColor) {
       style.backgroundColor = this.props.backgroundColor;
     }
